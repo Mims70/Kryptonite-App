@@ -1,13 +1,15 @@
 const express = require('express');
-const { uploadImage, getImage, getAllImages } = require('../controllers/fileController');
-const { authenticateApiKey } = require('../middlewares/authMiddleware');
-const multer = require('multer');
+const fileController = require('../controllers/fileController');
+const validateImage = require('../middlewares/validateImage');
+const apiKeyAuth = require('../middlewares/validateApiKey');
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' });
 
-router.post('/upload', authenticateApiKey, upload.single('image'), uploadImage);
-router.get('/:id', getImage);
-router.get('/', getAllImages);
+router.post('/upload', apiKeyAuth, validateImage, fileController.uploadFile);
+// Route to get all images
+router.get('/images', fileController.getAllImages);
+
+// Route to get a single image by ID
+router.get('/images/:id', fileController.getImageById);
 
 module.exports = router;
