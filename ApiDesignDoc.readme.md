@@ -19,7 +19,7 @@
   {
     "name": "username",
     "email": "user@example.com",
-    "passwor": "yourpassword",
+    "password": "yourpassword",
     "confirmPassword": "yourpassword"
   }
   ```
